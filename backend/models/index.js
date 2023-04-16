@@ -6,7 +6,7 @@ import {
 	dialect as _dialect,
 	pool as _pool,
 } from '../config/db.config.js';
-import todo from './todo.model.js';
+import todo from './todo.js';
 
 import Sequelize from 'sequelize';
 const sequelize = new Sequelize(DB, USER, PASSWORD, {

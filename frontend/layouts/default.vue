@@ -81,6 +81,11 @@ export default {
           title: 'Inspire',
           to: '/inspire',
         },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Todo',
+          to: '/todo',
+        },
       ],
       miniVariant: false,
       right: true,

@@ -1,8 +1,9 @@
+import dotenv from 'dotenv';
 import express from 'express';
-import pkg from 'body-parser';
-const { json, urlencoded } = pkg;
 import cors from 'cors';
 import db from './models/index.js';
+import routes from './routes/index.js';
+dotenv.config();
 
 const app = express();
 
@@ -16,20 +17,37 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
-// simple route
 app.get('/', (req, res) => {
-	res.json({ message: 'Welcome to TrungTN application.' });
+	return res.send('Received a GET HTTP method');
 });
 
-db.sequelize.sync({ force: true }).then(() => {
-	console.log('Drop and re-sync db.');
+app.post('/', (req, res) => {
+	return res.send('Received a POST HTTP method');
 });
 
-export default (app) => {
-	require('./routes/todo.routes.js').default(app);
-};
+app.put('/', (req, res) => {
+	return res.send('Received a PUT HTTP method');
+});
+
+app.delete('/', (req, res) => {
+	return res.send('Received a DELETE HTTP method');
+});
+
+// db.sequelize.sync({ force: true }).then(() => {
+// 	console.log('Drop and re-sync db.');
+// });
+db.sequelize
+	.sync()
+	.then(() => {
+		console.log('Synced db.');
+	})
+	.catch((err) => {
+		console.log('Failed to sync db: ' + err.message);
+	});
+
+app.use('/api/todo', routes.todo);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

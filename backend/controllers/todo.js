@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 import db from '../models/index.js';
 const Todo = db.todo;
 const Op = db.Sequelize.Op;
@@ -13,6 +14,7 @@ export function create(req, res) {
 
 	// Create a Todo
 	const todo = {
+		id: uuid(),
 		title: req.body.title,
 		description: req.body.description,
 		published: req.body.published ? req.body.published : false,
@@ -89,7 +91,7 @@ export function update(req, res) {
 		});
 }
 
-const _delete = (req, res) => {
+export function deleteById(req, res) {
 	const id = req.params.id;
 
 	Todo.destroy({
@@ -111,8 +113,7 @@ const _delete = (req, res) => {
 				message: 'Could not delete Todo with id=' + id,
 			});
 		});
-};
-export { _delete as delete };
+}
 
 export function deleteAll(req, res) {
 	Todo.destroy({
