@@ -16,8 +16,8 @@ router.post('/', create);
 // Retrieve all Todo
 router.get('/', findAll);
 
-// Retrieve all published Todo
-router.get('/published', findAllPublished);
+// Retrieve all completed Todo
+router.get('/completed', findAllPublished);
 
 // Retrieve a single Todo with id
 router.get('/:id', findOne);

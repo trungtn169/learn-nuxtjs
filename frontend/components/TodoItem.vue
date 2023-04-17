@@ -1,6 +1,6 @@
 <template>
   <v-card class="todo-item secondary">
-    <v-card-title :class="{ 'text-decoration-line-through': item.published }">
+    <v-card-title :class="{ 'text-decoration-line-through': item.completed }">
       {{ item.title }}
     </v-card-title>
     <v-card-text>
@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     status() {
-      return this.item.published ? 'completed' : 'not yet'
+      return this.item.completed ? 'completed' : 'not yet'
     },
   },
 }

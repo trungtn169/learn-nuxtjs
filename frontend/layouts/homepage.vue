@@ -8,7 +8,7 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <v-footer class="info justify-center py-3">
+    <v-footer class="info justify-center py-3 mt-10">
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>

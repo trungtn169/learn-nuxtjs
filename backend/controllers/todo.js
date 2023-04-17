@@ -17,7 +17,7 @@ export function create(req, res) {
 		id: uuid(),
 		title: req.body.title,
 		description: req.body.description,
-		published: req.body.published ? req.body.published : false,
+		completed: req.body.completed ? req.body.completed : false,
 	};
 
 	// Save Todo in the database
@@ -131,7 +131,7 @@ export function deleteAll(req, res) {
 }
 
 export function findAllPublished(req, res) {
-	Todo.findAll({ where: { published: true } })
+	Todo.findAll({ where: { completed: true } })
 		.then((data) => {
 			res.send(data);
 		})

@@ -10,7 +10,7 @@ export default (sequelize, Sequelize) => {
 		description: {
 			type: Sequelize.STRING,
 		},
-		published: {
+		completed: {
 			type: Sequelize.BOOLEAN,
 		},
 	});

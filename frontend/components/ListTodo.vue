@@ -26,7 +26,9 @@ export default {
   },
   watch: {
     listTodo(val) {
-      this.list = val
+      console.log(val)
+      console.log(this.listTodo)
+      // this.list = [...this.listTodo]
     },
   },
   created() {

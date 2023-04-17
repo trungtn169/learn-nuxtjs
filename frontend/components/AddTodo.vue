@@ -45,7 +45,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('modules/todo', ['addTodo']),
+    ...mapActions('modules/todo', ['addTodo', 'getListTodo']),
     validate() {
       this.$refs.formAddTodo.validate()
     },
@@ -61,6 +61,7 @@ export default {
         completed: this.completed,
       })
       this.resetForm()
+      this.getListTodo()
     },
   },
 }
