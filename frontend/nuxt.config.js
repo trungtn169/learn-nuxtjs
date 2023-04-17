@@ -1,6 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  ssr: false,
   env: {
     baseUrl: process.env.BASE_URL || `http://localhost:${process.env.PORT}`,
     apiUrl: process.env.API_URL,
@@ -59,13 +60,16 @@ export default {
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    treeShake: true,
     theme: {
+      dark: false,
+      default: 'light',
       themes: {
-        dark: {
-          primary: '#009FBD',
-          accent: '#77037B',
-          secondary: '#210062',
-          info: '#F9E2AF',
+        light: {
+          primary: '#89375F',
+          accent: '#CE5959',
+          secondary: '#F3E8FF',
+          info: '#BACDDB',
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
