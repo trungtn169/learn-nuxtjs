@@ -10,11 +10,14 @@
     <v-divider></v-divider>
     <v-card-actions class="d-flex align-center justify-end">
       <v-btn color="primary" depressed><v-icon small>mdi-pencil</v-icon></v-btn>
-      <v-btn color="accent" depressed><v-icon small>mdi-delete</v-icon></v-btn>
+      <v-btn color="accent" depressed @click="handleDelete"
+        ><v-icon small>mdi-delete</v-icon></v-btn
+      >
     </v-card-actions>
   </v-card>
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'TodoItem',
   props: {
@@ -29,6 +32,12 @@ export default {
   computed: {
     status() {
       return this.item.completed ? 'completed' : 'not yet'
+    },
+  },
+  methods: {
+    ...mapActions('modules/todo', ['deleteTodo']),
+    handleDelete() {
+      this.deleteTodo(this.item.id)
     },
   },
 }

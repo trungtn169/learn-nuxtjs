@@ -1,34 +1,29 @@
 <template>
   <div class="add-todo">
     <h2>Form add todo</h2>
-    <!-- <v-form ref="formAddTodo" v-model="valid" lazy-validation> -->
-    <v-text-field
-      v-model="title"
-      :rules="titleRules"
-      required
-      placeholder="Title"
-      hide-details="auto"
-    ></v-text-field>
-    <v-text-field
-      v-model="description"
-      placeholder="Description"
-      hide-details="auto"
-    ></v-text-field>
-    <v-checkbox
-      v-model="completed"
-      label="Status (check for the mark to do is completed)"
-    ></v-checkbox>
-    <div class="text-center">
-      <v-btn
-        depressed
-        :disabled="!isValid"
-        color="primary"
-        @click="handleAddTodo"
-      >
-        <v-icon>mdi-checkbox-marked-circle</v-icon>Add
-      </v-btn>
-    </div>
-    <!-- </v-form> -->
+    <v-form ref="formAddTodo" v-model="isValid" lazy-validation>
+      <v-text-field
+        v-model="title"
+        :rules="titleRules"
+        required
+        placeholder="Title"
+        hide-details="auto"
+      ></v-text-field>
+      <v-text-field
+        v-model="description"
+        placeholder="Description"
+        hide-details="auto"
+      ></v-text-field>
+      <v-checkbox
+        v-model="completed"
+        label="Status (check for the mark to do is completed)"
+      ></v-checkbox>
+      <div class="text-center">
+        <v-btn depressed color="primary" @click="handleAddTodo">
+          <v-icon>mdi-checkbox-marked-circle</v-icon>Add
+        </v-btn>
+      </div>
+    </v-form>
   </div>
 </template>
 <script>
@@ -37,7 +32,7 @@ export default {
   name: 'AddTodo',
   data() {
     return {
-      isValid: true,
+      isValid: false,
       title: '',
       description: '',
       completed: false,
@@ -50,21 +45,18 @@ export default {
   methods: {
     ...mapActions('modules/todo', ['addTodo', 'getListTodo']),
     validate() {
-      this.$refs.formAddTodo.validate()
-    },
-    resetForm() {
-      this.title = ''
-      this.description = ''
-      this.completed = false
+      return this.$refs.formAddTodo.validate()
     },
     handleAddTodo() {
-      this.addTodo({
-        title: this.title,
-        description: this.description,
-        completed: this.completed,
-      })
-      this.resetForm()
-      this.getListTodo()
+      if (this.validate()) {
+        this.addTodo({
+          title: this.title,
+          description: this.description,
+          completed: this.completed,
+        })
+        this.getListTodo()
+        this.$refs.formAddTodo.resetValidation()
+      }
     },
   },
 }

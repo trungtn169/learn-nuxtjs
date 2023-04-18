@@ -1,6 +1,9 @@
 <template>
   <div class="list-todo">
-    <h2 class="mb-3">Todo List</h2>
+    <div class="d-flex align-center justify-space-between mb-5">
+      <h2 class="mb-0">Todo List</h2>
+      <v-btn color="primary" @click="handleDeleteAll">Delete All</v-btn>
+    </div>
     <v-row class="list-todo-wrapper">
       <v-col v-for="item in list" :key="item.id" cols="12" lg="4">
         <Todo :item="item" />
@@ -25,15 +28,24 @@ export default {
     ...mapState('modules/todo', ['listTodo']),
   },
   watch: {
-    listTodo(val) {
-      this.list = [...val]
+    listTodo(newVal) {
+      if (newVal) {
+        this.list = newVal
+      }
     },
   },
   created() {
-    this.getListTodo()
+    this.fetchData()
   },
   methods: {
-    ...mapActions('modules/todo', ['getListTodo']),
+    ...mapActions('modules/todo', ['getListTodo', 'deleteTodoAll']),
+    fetchData() {
+      this.getListTodo()
+      this.list = this.listTodo
+    },
+    handleDeleteAll() {
+      this.deleteTodoAll()
+    },
   },
 }
 </script>
