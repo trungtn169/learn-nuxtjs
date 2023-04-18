@@ -14,7 +14,10 @@
       placeholder="Description"
       hide-details="auto"
     ></v-text-field>
-    <v-checkbox v-model="completed" label="Status"></v-checkbox>
+    <v-checkbox
+      v-model="completed"
+      label="Status (check for the mark to do is completed)"
+    ></v-checkbox>
     <div class="text-center">
       <v-btn
         depressed

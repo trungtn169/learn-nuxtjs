@@ -7,8 +7,9 @@ dotenv.config();
 
 const app = express();
 
+const PORT_FRONTEND = process.env.PORT_FRONTEND || 4000;
 var corsOptions = {
-	origin: 'http://localhost:8080',
+	origin: `http://localhost:${PORT_FRONTEND}`,
 };
 
 app.use(cors(corsOptions));

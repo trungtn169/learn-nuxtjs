@@ -1,9 +1,11 @@
 import colors from 'vuetify/es5/util/colors'
 
+const PORT = process.env.PORT || 4000
+
 export default {
   ssr: false,
   env: {
-    baseUrl: process.env.BASE_URL || `http://localhost:${process.env.PORT}`,
+    baseUrl: process.env.BASE_URL || `http://localhost:${PORT}`,
     apiUrl: process.env.API_URL,
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
