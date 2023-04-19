@@ -8,18 +8,16 @@
       <p>Status: {{ status }}</p>
     </v-card-text>
     <v-divider></v-divider>
-    <v-card-actions class="d-flex align-center justify-end">
-      <v-btn color="primary" depressed><v-icon small>mdi-pencil</v-icon></v-btn>
-      <v-btn color="accent" depressed @click="handleDelete"
-        ><v-icon small>mdi-delete</v-icon></v-btn
-      >
+    <v-card-actions class="d-flex align-center justify-center">
+      <v-btn color="primary" depressed :to="`todo/${item.slug}`">
+        <v-icon small>mdi-information-variant</v-icon>
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
 <script>
-import { mapActions } from 'vuex'
 export default {
-  name: 'TodoItem',
+  name: 'TodoReadyOnly',
   props: {
     item: {
       type: Object,
@@ -32,12 +30,6 @@ export default {
   computed: {
     status() {
       return this.item.completed ? 'Completed' : 'Not yet completed'
-    },
-  },
-  methods: {
-    ...mapActions('modules/todo', ['deleteTodo']),
-    handleDelete() {
-      this.deleteTodo(this.item.id)
     },
   },
 }

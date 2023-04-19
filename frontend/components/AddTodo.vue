@@ -19,7 +19,12 @@
         label="Status (check for the mark to do is completed)"
       ></v-checkbox>
       <div class="text-center">
-        <v-btn depressed color="primary" @click="handleAddTodo">
+        <v-btn
+          depressed
+          color="primary"
+          @click="handleAddTodo"
+          :loading="isLoading"
+        >
           <v-icon>mdi-checkbox-marked-circle</v-icon>Add
         </v-btn>
       </div>
@@ -40,6 +45,7 @@ export default {
         (v) => !!v || 'Title is required',
         (v) => v.length >= 3 || 'Name must be greater than 03 characters',
       ],
+      isLoading: false,
     }
   },
   methods: {
@@ -49,13 +55,24 @@ export default {
     },
     handleAddTodo() {
       if (this.validate()) {
+        this.isLoading = true
+        const slug = this.title
+          .toLowerCase()
+          .trim()
+          .replace(/[^\w\s-]/g, '')
+          .replace(/[\s_-]+/g, '-')
+          .replace(/^-+|-+$/g, '')
         this.addTodo({
           title: this.title,
+          slug,
           description: this.description,
           completed: this.completed,
         })
         this.getListTodo()
         this.$refs.formAddTodo.resetValidation()
+        setTimeout(() => {
+          this.isLoading = false
+        }, 1000)
       }
     },
   },

@@ -20,6 +20,16 @@ export default {
         console.log(err)
       })
   },
+  async getListTodoCompleted({ commit }) {
+    await this.$axios
+      .$get(`${API_TODO}/completed`)
+      .then((res) => {
+        commit('getListTodoCompleted', res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  },
   async deleteTodo({ commit }, payload) {
     await this.$axios
       .$delete(`${API_TODO}/${payload}`)

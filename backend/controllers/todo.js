@@ -16,6 +16,7 @@ export function create(req, res) {
 	const todo = {
 		id: uuid(),
 		title: req.body.title,
+		slug: req.body.slug,
 		description: req.body.description,
 		completed: req.body.completed ? req.body.completed : false,
 	};

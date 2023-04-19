@@ -1,27 +1,20 @@
 <template>
   <v-row justify="center" align="start">
-    <v-col cols="6" class="mt-5 max-auto">
-      <AddTodo />
-    </v-col>
-    <v-col cols="6" class="mt-5 max-auto">
-      <ReportTodo />
-    </v-col>
     <v-col cols="12" class="mt-5">
-      <ListTodo />
+      <TodoCompleted />
+      <TodoUncompleted class="mt-10" />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import AddTodo from '~/components/AddTodo.vue'
-import ListTodo from '~/components/ListTodo.vue'
-import ReportTodo from '~/components/ReportTodo.vue'
+import TodoUncompleted from '~/components/TodoUncompleted.vue'
+import TodoCompleted from '~/components/TodoCompleted.vue'
 export default {
   name: 'IndexPage',
   components: {
-    AddTodo,
-    ListTodo,
-    ReportTodo,
+    TodoUncompleted,
+    TodoCompleted,
   },
   layout: 'homepage',
 }

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <h1 align="center" class="primary py-5">
-      <span class="white--text">TODO APP</span>
+      <span class="white--text">Welcome</span>
     </h1>
     <v-main>
       <v-container>

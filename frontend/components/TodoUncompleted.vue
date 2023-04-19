@@ -1,23 +1,27 @@
 <template>
   <div class="list-todo">
     <div class="d-flex align-center justify-space-between mb-5">
-      <h2 class="mb-0">Todo List</h2>
-      <v-btn color="primary" @click="handleDeleteAll">Delete All</v-btn>
+      <h2 class="mb-0">Todo Uncompleted</h2>
     </div>
     <v-row class="list-todo-wrapper">
-      <v-col v-for="item in list" :key="item.id" cols="12" lg="4">
-        <Todo :item="item" />
+      <v-col
+        v-for="item in list.filter((todo) => !todo.completed)"
+        :key="item.id"
+        cols="12"
+        lg="4"
+      >
+        <TodoReadyOnly :item="item" />
       </v-col>
     </v-row>
   </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import Todo from './TodoItem.vue'
+import TodoReadyOnly from './TodoReadyOnly.vue'
 export default {
-  name: 'ListTodo',
+  name: 'TodoCompleted',
   components: {
-    Todo,
+    TodoReadyOnly,
   },
   data() {
     return {
@@ -38,13 +42,10 @@ export default {
     this.fetchData()
   },
   methods: {
-    ...mapActions('modules/todo', ['getListTodo', 'deleteTodoAll']),
+    ...mapActions('modules/todo', ['getListTodo']),
     fetchData() {
       this.getListTodo()
       this.list = this.listTodo
-    },
-    handleDeleteAll() {
-      this.deleteTodoAll()
     },
   },
 }

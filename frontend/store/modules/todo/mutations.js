@@ -5,6 +5,9 @@ export default {
   getListTodo(state, payload) {
     state.listTodo = payload
   },
+  getListTodoCompleted(state, payload) {
+    state.listTodoCompleted = payload
+  },
   deleteTodo(state, payload) {
     state.listTodo = state.listTodo.filter((todo) => todo.id !== payload)
   },
