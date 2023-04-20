@@ -1,9 +1,7 @@
 <template>
   <v-app>
-    <h1 align="center" class="primary py-5">
-      <span class="white--text">Welcome</span>
-    </h1>
     <v-main>
+      <HeaderLayout />
       <v-container>
         <Nuxt />
       </v-container>
@@ -15,10 +13,13 @@
 </template>
 
 <script>
+import HeaderLayout from '~/components/layout/homepage/header.vue'
+
 export default {
   name: 'HomePage',
   data() {
     return {}
   },
+  components: { HeaderLayout },
 }
 </script>

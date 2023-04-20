@@ -22,10 +22,10 @@ export default (sequelize, Sequelize) => {
 		published: {
 			type: Sequelize.BOOLEAN,
 		},
-		idCategory: {
+		listCategory: {
 			type: Sequelize.JSON,
 		},
-		idTag: {
+		listTag: {
 			type: Sequelize.JSON,
 		},
 		idAuthor: {

@@ -17,5 +17,10 @@ export default {
     TodoCompleted,
   },
   layout: 'homepage',
+  head() {
+    return {
+      title: 'Home Page',
+    }
+  },
 }
 </script>

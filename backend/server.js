@@ -49,6 +49,9 @@ db.sequelize.sync({ force: true }).then(() => {
 // 	});
 
 app.use('/api/post', routes.post);
+app.use('/api/user', routes.user);
+app.use('/api/tag', routes.tag);
+app.use('/api/category', routes.category);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;

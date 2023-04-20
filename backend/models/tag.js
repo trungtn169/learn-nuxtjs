@@ -7,9 +7,6 @@ export default (sequelize, Sequelize) => {
 		title: {
 			type: Sequelize.STRING,
 		},
-		subTitle: {
-			type: Sequelize.STRING,
-		},
 		slug: {
 			type: Sequelize.STRING,
 		},

@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import db from '../models/index.js';
-const Post = db.post;
+const Category = db.category;
 const Op = db.Sequelize.Op;
 
 export function create(req, res) {
@@ -12,28 +12,24 @@ export function create(req, res) {
 		return;
 	}
 
-	// Create a Post
+	// Create a Category
 	const post = {
 		id: uuid(),
 		title: req.body.title,
-		subTitle: req.body.subTitle,
 		slug: req.body.slug,
 		description: req.body.description,
-		shortDescription: req.body.shortDescription,
-		listCategory: req.body.listCategory,
-		listTag: req.body.listTag,
-		idAuthor: req.body.idAuthor,
-		published: req.body.published ? req.body.published : false,
+		idParent: req.body.idParent,
 	};
 
-	// Save Post in the database
-	Post.create(post)
+	// Save Category in the database
+	Category.create(post)
 		.then((data) => {
 			res.send(data);
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: err.message || 'Some error occurred while creating the Post.',
+				message:
+					err.message || 'Some error occurred while creating the Category.',
 			});
 		});
 }
@@ -42,7 +38,7 @@ export function findAll(req, res) {
 	const title = req.query.title;
 	let condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
-	Post.findAll({ where: condition })
+	Category.findAll({ where: condition })
 		.then((data) => {
 			res.send(data);
 		})
@@ -56,19 +52,19 @@ export function findAll(req, res) {
 export function findOne(req, res) {
 	const id = req.params.id;
 
-	Post.findByPk(id)
+	Category.findByPk(id)
 		.then((data) => {
 			if (data) {
 				res.send(data);
 			} else {
 				res.status(404).send({
-					message: `Cannot find Post with id=${id}.`,
+					message: `Cannot find Category with id=${id}.`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: 'Error retrieving Post with id=' + id,
+				message: 'Error retrieving Category with id=' + id,
 			});
 		});
 }
@@ -76,23 +72,23 @@ export function findOne(req, res) {
 export function update(req, res) {
 	const id = req.params.id;
 
-	Post.update(req.body, {
+	Category.update(req.body, {
 		where: { id: id },
 	})
 		.then((num) => {
 			if (num == 1) {
 				res.send({
-					message: 'Post was updated successfully.',
+					message: 'Category was updated successfully.',
 				});
 			} else {
 				res.send({
-					message: `Cannot update Post with id=${id}. Maybe Post was not found or req.body is empty!`,
+					message: `Cannot update Category with id=${id}. Maybe Category was not found or req.body is empty!`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: 'Error updating Post with id=' + id,
+				message: 'Error updating Category with id=' + id,
 			});
 		});
 }
@@ -100,50 +96,38 @@ export function update(req, res) {
 export function deleteById(req, res) {
 	const id = req.params.id;
 
-	Post.destroy({
+	Category.destroy({
 		where: { id: id },
 	})
 		.then((num) => {
 			if (num == 1) {
 				res.send({
-					message: 'Post was deleted successfully!',
+					message: 'Category was deleted successfully!',
 				});
 			} else {
 				res.send({
-					message: `Cannot delete Post with id=${id}. Maybe Post was not found!`,
+					message: `Cannot delete Category with id=${id}. Maybe Category was not found!`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: 'Could not delete Post with id=' + id,
+				message: 'Could not delete Category with id=' + id,
 			});
 		});
 }
 
 export function deleteAll(req, res) {
-	Post.destroy({
+	Category.destroy({
 		where: {},
 		truncate: false,
 	})
 		.then((num) => {
-			res.send({ message: `${num} Post were deleted successfully!` });
+			res.send({ message: `${num} Category were deleted successfully!` });
 		})
 		.catch((err) => {
 			res.status(500).send({
 				message: err.message || 'Some error occurred while removing all post.',
-			});
-		});
-}
-
-export function findAllPublished(req, res) {
-	Post.findAll({ where: { published: true } })
-		.then((data) => {
-			res.send(data);
-		})
-		.catch((err) => {
-			res.status(500).send({
-				message: err.message || 'Some error occurred while retrieving post.',
 			});
 		});
 }

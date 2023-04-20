@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import db from '../models/index.js';
-const Post = db.post;
+const Post = db.tag;
 const Op = db.Sequelize.Op;
 
 export function create(req, res) {
@@ -13,21 +13,15 @@ export function create(req, res) {
 	}
 
 	// Create a Post
-	const post = {
+	const tag = {
 		id: uuid(),
 		title: req.body.title,
-		subTitle: req.body.subTitle,
 		slug: req.body.slug,
 		description: req.body.description,
-		shortDescription: req.body.shortDescription,
-		listCategory: req.body.listCategory,
-		listTag: req.body.listTag,
-		idAuthor: req.body.idAuthor,
-		published: req.body.published ? req.body.published : false,
 	};
 
 	// Save Post in the database
-	Post.create(post)
+	Post.create(tag)
 		.then((data) => {
 			res.send(data);
 		})
@@ -48,7 +42,7 @@ export function findAll(req, res) {
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: err.message || 'Some error occurred while retrieving post.',
+				message: err.message || 'Some error occurred while retrieving tag.',
 			});
 		});
 }
@@ -131,19 +125,7 @@ export function deleteAll(req, res) {
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: err.message || 'Some error occurred while removing all post.',
-			});
-		});
-}
-
-export function findAllPublished(req, res) {
-	Post.findAll({ where: { published: true } })
-		.then((data) => {
-			res.send(data);
-		})
-		.catch((err) => {
-			res.status(500).send({
-				message: err.message || 'Some error occurred while retrieving post.',
+				message: err.message || 'Some error occurred while removing all tag.',
 			});
 		});
 }

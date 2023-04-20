@@ -10,7 +10,6 @@ import post from './post.js';
 import user from './user.js';
 import tag from './tag.js';
 import category from './category.js';
-import role from './role.js';
 
 import Sequelize from 'sequelize';
 const sequelize = new Sequelize(DB, USER, PASSWORD, {
@@ -33,6 +32,5 @@ db.post = post(sequelize, Sequelize);
 db.user = user(sequelize, Sequelize);
 db.tag = tag(sequelize, Sequelize);
 db.category = category(sequelize, Sequelize);
-db.role = role(sequelize, Sequelize);
 
 export default db;
