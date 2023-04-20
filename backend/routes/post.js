@@ -7,28 +7,28 @@ import {
 	update,
 	deleteById,
 	deleteAll,
-} from '../controllers/todo.js';
+} from '../controllers/post.js';
 const router = Router();
 
-// Create a new Todo
+// Create a new Post
 router.post('/', create);
 
-// Retrieve all Todo
+// Retrieve all Post
 router.get('/', findAll);
 
-// Retrieve all completed Todo
+// Retrieve all completed Post
 router.get('/completed', findAllPublished);
 
-// Retrieve a single Todo with id
+// Retrieve a single Post with id
 router.get('/:id', findOne);
 
-// Update a Todo with id
+// Update a Post with id
 router.put('/:id', update);
 
-// Delete a Todo with id
+// Delete a Post with id
 router.delete('/:id', deleteById);
 
-// Delete all Todo
+// Delete all Post
 router.delete('/', deleteAll);
 
 export default router;

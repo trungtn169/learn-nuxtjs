@@ -36,19 +36,19 @@ app.delete('/', (req, res) => {
 	return res.send('Received a DELETE HTTP method');
 });
 
-// db.sequelize.sync({ force: true }).then(() => {
-// 	console.log('Drop and re-sync db.');
-// });
-db.sequelize
-	.sync()
-	.then(() => {
-		console.log('Synced db.');
-	})
-	.catch((err) => {
-		console.log('Failed to sync db: ' + err.message);
-	});
+db.sequelize.sync({ force: true }).then(() => {
+	console.log('Drop and re-sync db.');
+});
+// db.sequelize
+// 	.sync()
+// 	.then(() => {
+// 		console.log('Synced db.');
+// 	})
+// 	.catch((err) => {
+// 		console.log('Failed to sync db: ' + err.message);
+// 	});
 
-app.use('/api/todo', routes.todo);
+app.use('/api/post', routes.post);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;

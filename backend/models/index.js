@@ -6,7 +6,11 @@ import {
 	dialect as _dialect,
 	pool as _pool,
 } from '../config/db.config.js';
-import todo from './todo.js';
+import post from './post.js';
+import user from './user.js';
+import tag from './tag.js';
+import category from './category.js';
+import role from './role.js';
 
 import Sequelize from 'sequelize';
 const sequelize = new Sequelize(DB, USER, PASSWORD, {
@@ -25,6 +29,10 @@ const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-db.todo = todo(sequelize, Sequelize);
+db.post = post(sequelize, Sequelize);
+db.user = user(sequelize, Sequelize);
+db.tag = tag(sequelize, Sequelize);
+db.category = category(sequelize, Sequelize);
+db.role = role(sequelize, Sequelize);
 
 export default db;

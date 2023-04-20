@@ -1,5 +1,5 @@
 export default (sequelize, Sequelize) => {
-	const Todo = sequelize.define('todo', {
+	const Tag = sequelize.define('tag', {
 		id: {
 			type: Sequelize.STRING,
 			primaryKey: true,
@@ -7,16 +7,16 @@ export default (sequelize, Sequelize) => {
 		title: {
 			type: Sequelize.STRING,
 		},
+		subTitle: {
+			type: Sequelize.STRING,
+		},
 		slug: {
 			type: Sequelize.STRING,
 		},
 		description: {
-			type: Sequelize.STRING,
-		},
-		completed: {
-			type: Sequelize.BOOLEAN,
+			type: Sequelize.TEXT,
 		},
 	});
 
-	return Todo;
+	return Tag;
 };

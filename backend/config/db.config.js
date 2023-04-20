@@ -1,7 +1,7 @@
 export const HOST = 'localhost';
 export const USER = 'root';
 export const PASSWORD = '';
-export const DB = 'todo-app';
+export const DB = 'blog-app';
 export const dialect = 'mysql';
 export const pool = {
 	max: 5,

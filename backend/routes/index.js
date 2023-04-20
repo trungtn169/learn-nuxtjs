@@ -1,5 +1,5 @@
-import todo from './todo.js';
+import post from './post.js';
 
 export default {
-	todo,
+	post,
 };

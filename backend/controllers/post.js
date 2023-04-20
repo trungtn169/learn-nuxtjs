@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import db from '../models/index.js';
-const Todo = db.todo;
+const Post = db.post;
 const Op = db.Sequelize.Op;
 
 export function create(req, res) {
@@ -12,8 +12,8 @@ export function create(req, res) {
 		return;
 	}
 
-	// Create a Todo
-	const todo = {
+	// Create a Post
+	const post = {
 		id: uuid(),
 		title: req.body.title,
 		slug: req.body.slug,
@@ -21,14 +21,14 @@ export function create(req, res) {
 		completed: req.body.completed ? req.body.completed : false,
 	};
 
-	// Save Todo in the database
-	Todo.create(todo)
+	// Save Post in the database
+	Post.create(post)
 		.then((data) => {
 			res.send(data);
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: err.message || 'Some error occurred while creating the Todo.',
+				message: err.message || 'Some error occurred while creating the Post.',
 			});
 		});
 }
@@ -37,13 +37,13 @@ export function findAll(req, res) {
 	const title = req.query.title;
 	let condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
-	Todo.findAll({ where: condition })
+	Post.findAll({ where: condition })
 		.then((data) => {
 			res.send(data);
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: err.message || 'Some error occurred while retrieving todo.',
+				message: err.message || 'Some error occurred while retrieving post.',
 			});
 		});
 }
@@ -51,19 +51,19 @@ export function findAll(req, res) {
 export function findOne(req, res) {
 	const id = req.params.id;
 
-	Todo.findByPk(id)
+	Post.findByPk(id)
 		.then((data) => {
 			if (data) {
 				res.send(data);
 			} else {
 				res.status(404).send({
-					message: `Cannot find Todo with id=${id}.`,
+					message: `Cannot find Post with id=${id}.`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: 'Error retrieving Todo with id=' + id,
+				message: 'Error retrieving Post with id=' + id,
 			});
 		});
 }
@@ -71,23 +71,23 @@ export function findOne(req, res) {
 export function update(req, res) {
 	const id = req.params.id;
 
-	Todo.update(req.body, {
+	Post.update(req.body, {
 		where: { id: id },
 	})
 		.then((num) => {
 			if (num == 1) {
 				res.send({
-					message: 'Todo was updated successfully.',
+					message: 'Post was updated successfully.',
 				});
 			} else {
 				res.send({
-					message: `Cannot update Todo with id=${id}. Maybe Todo was not found or req.body is empty!`,
+					message: `Cannot update Post with id=${id}. Maybe Post was not found or req.body is empty!`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: 'Error updating Todo with id=' + id,
+				message: 'Error updating Post with id=' + id,
 			});
 		});
 }
@@ -95,50 +95,50 @@ export function update(req, res) {
 export function deleteById(req, res) {
 	const id = req.params.id;
 
-	Todo.destroy({
+	Post.destroy({
 		where: { id: id },
 	})
 		.then((num) => {
 			if (num == 1) {
 				res.send({
-					message: 'Todo was deleted successfully!',
+					message: 'Post was deleted successfully!',
 				});
 			} else {
 				res.send({
-					message: `Cannot delete Todo with id=${id}. Maybe Todo was not found!`,
+					message: `Cannot delete Post with id=${id}. Maybe Post was not found!`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: 'Could not delete Todo with id=' + id,
+				message: 'Could not delete Post with id=' + id,
 			});
 		});
 }
 
 export function deleteAll(req, res) {
-	Todo.destroy({
+	Post.destroy({
 		where: {},
 		truncate: false,
 	})
 		.then((num) => {
-			res.send({ message: `${num} Todo were deleted successfully!` });
+			res.send({ message: `${num} Post were deleted successfully!` });
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: err.message || 'Some error occurred while removing all todo.',
+				message: err.message || 'Some error occurred while removing all post.',
 			});
 		});
 }
 
 export function findAllPublished(req, res) {
-	Todo.findAll({ where: { completed: true } })
+	Post.findAll({ where: { completed: true } })
 		.then((data) => {
 			res.send(data);
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: err.message || 'Some error occurred while retrieving todo.',
+				message: err.message || 'Some error occurred while retrieving post.',
 			});
 		});
 }
