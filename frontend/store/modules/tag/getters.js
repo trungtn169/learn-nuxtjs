@@ -1,9 +1,9 @@
 export default {
   getCount(state) {
-    return state.listTodo.length
+    return state.listTag.length
   },
   getCountCompleted(state) {
-    return state.listTodo.filter((todo) => todo.completed).length
+    return state.listTag.filter((post) => post.completed).length
   },
   getCountCompletedPercent(state, getters) {
     return Math.round((getters.getCountCompleted / getters.getCount) * 100)

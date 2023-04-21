@@ -1,50 +1,50 @@
-import { API_TODO } from '~/store/api/todo'
+import { API_TAG } from '~/store/api/tag'
 export default {
-  async addTodo({ commit }, payload) {
+  async addTag({ commit }, payload) {
     await this.$axios
-      .$post(API_TODO, payload)
+      .$post(API_TAG.addTag, payload)
       .then((res) => {
-        commit('addTodo', res)
+        commit('addTag', res)
       })
       .catch((err) => {
         console.log(err)
       })
   },
-  async getListTodo({ commit }) {
+  async getListTag({ commit }) {
     await this.$axios
-      .$get(API_TODO)
+      .$get(API_TAG.getTag)
       .then((res) => {
-        commit('getListTodo', res)
+        commit('getListTag', res)
       })
       .catch((err) => {
         console.log(err)
       })
   },
-  async getListTodoCompleted({ commit }) {
+  async getListTagCompleted({ commit }) {
     await this.$axios
-      .$get(`${API_TODO}/completed`)
+      .$get(API_TAG.getTagCompleted)
       .then((res) => {
-        commit('getListTodoCompleted', res)
+        commit('getListTagCompleted', res)
       })
       .catch((err) => {
         console.log(err)
       })
   },
-  async deleteTodo({ commit }, payload) {
+  async deleteTag({ commit }, payload) {
     await this.$axios
-      .$delete(`${API_TODO}/${payload}`)
+      .$delete(API_TAG.deleteTag + payload)
       .then(() => {
-        commit('deleteTodo', payload)
+        commit('deleteTag', payload)
       })
       .catch((err) => {
         console.log(err)
       })
   },
-  async deleteTodoAll({ commit }) {
+  async deleteTagAll({ commit }) {
     await this.$axios
-      .$delete(API_TODO)
+      .$delete(API_TAG.deleteTagAll)
       .then(() => {
-        commit('deleteTodoAll')
+        commit('deleteTagAll')
       })
       .catch((err) => {
         console.log(err)

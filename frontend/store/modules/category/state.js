@@ -1,6 +1,6 @@
 export default () => ({
   title: '',
   isEdit: false,
-  listTodo: [],
-  listTodoCompleted: [],
+  listCategory: [],
+  listCategoryCompleted: [],
 })

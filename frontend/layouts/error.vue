@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app dark class="text-center pt-10">
     <h1 v-if="error.statusCode === 404">
       {{ pageNotFound }}
     </h1>
@@ -13,7 +13,7 @@
 <script>
 export default {
   name: 'EmptyLayout',
-  layout: 'empty',
+  layout: 'homepage',
   props: {
     error: {
       type: Object,

@@ -7,9 +7,7 @@
         >
         <ul class="header__menu d-flex align-center">
           <li v-for="(item, idx) in topLink" :key="idx">
-            <nuxt-link :to="item.path" class="white--text"
-              >{{ item.name }}
-            </nuxt-link>
+            <nuxt-link :to="item.path">{{ item.name }}</nuxt-link>
           </li>
         </ul>
       </v-container>
@@ -38,6 +36,20 @@ export default {
 <style lang="scss" scoped>
 .header {
   &__inner {
+  }
+  &__menu {
+    list-style: none;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    a {
+      text-decoration: none;
+      color: white;
+      &.nuxt-link-exact-active,
+      &:hover {
+        border-bottom: 1px solid white;
+      }
+    }
   }
 }
 </style>
