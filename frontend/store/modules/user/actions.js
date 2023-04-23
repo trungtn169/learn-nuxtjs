@@ -20,11 +20,12 @@ export default {
         console.log(err)
       })
   },
-  async getListUserCompleted({ commit }) {
+  async getUserLogin({ commit }) {
     await this.$axios
-      .$get(API_USER.getUserCompleted)
+      .$get(API_USER.getUser)
       .then((res) => {
-        commit('getListUserCompleted', res)
+        console.log(res)
+        commit('getUserLogin', res[0].userName)
       })
       .catch((err) => {
         console.log(err)

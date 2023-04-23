@@ -19,7 +19,7 @@ export function create(req, res) {
 		mail: req.body.mail,
 		password: req.body.password,
 		userName: req.body.userName,
-		role: req.body.role ? req.body.userName : 'user',
+		role: req.body.role ? req.body.role : 'user',
 	};
 
 	// Save User in the database
@@ -52,21 +52,22 @@ export function findAll(req, res) {
 }
 
 export function findOne(req, res) {
-	const id = req.params.id;
+	const userName = req.params.userName;
+	const password = req.params.password;
 
-	User.findByPk(id)
+	User.findOne({ where: { userName: userName, password: password } })
 		.then((data) => {
 			if (data) {
 				res.send(data);
 			} else {
 				res.status(404).send({
-					message: `Cannot find User with id=${id}.`,
+					message: `Cannot find User with user name=${userName}.`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: 'Error retrieving User with id=' + id,
+				message: 'Error retrieving User with user name=' + userName,
 			});
 		});
 }

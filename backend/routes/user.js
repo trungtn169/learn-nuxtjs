@@ -16,7 +16,7 @@ router.post('/', create);
 router.get('/', findAll);
 
 // Retrieve a single User with id
-router.get('/:id', findOne);
+router.get('/:userName/:password', findOne);
 
 // Update a User with id
 router.put('/:id', update);

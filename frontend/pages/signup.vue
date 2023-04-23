@@ -47,30 +47,31 @@
           <validation-provider
             v-slot="{ errors }"
             name="Password"
+            vid="password"
             rules="required|min:6|max:12"
           >
             <v-text-field
               v-model="password"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-              @click:append="show1 = !show1"
               :error-messages="errors"
               placeholder="Password"
               :type="show1 ? 'text' : 'password'"
               required
+              @click:append="show1 = !show1"
             ></v-text-field>
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
             name="Confirm password"
-            rules="confirm:@password"
+            rules="confirmed:@password"
           >
             <v-text-field
               v-model="confirm"
               :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-              @click:append="show2 = !show2"
               :error-messages="errors"
               placeholder="Confirm your password"
               :type="show2 ? 'text' : 'password'"
+              @click:append="show2 = !show2"
             ></v-text-field>
           </validation-provider>
           <validation-provider
@@ -93,8 +94,8 @@
           </validation-provider>
 
           <div class="text-center">
-            <v-btn class="mt-10" @click="submit" color="primary">
-              submit
+            <v-btn class="mt-10" color="primary" @click="submit">
+              Sign up
             </v-btn>
           </div>
         </form>
@@ -111,7 +112,7 @@ import {
   ValidationProvider,
   setInteractionMode,
 } from 'vee-validate'
-
+import { mapActions } from 'vuex'
 setInteractionMode('eager')
 extend('required', {
   ...required,
@@ -129,7 +130,7 @@ extend('email', {
   ...email,
   message: 'Email must be valid',
 })
-extend('confirm', {
+extend('confirmed', {
   params: ['target'],
   validate(value, { target }) {
     return value === target
@@ -155,11 +156,27 @@ export default {
       show2: false,
     }
   },
+  head() {
+    return {
+      title: 'Signup',
+    }
+  },
   methods: {
+    ...mapActions('modules/user', ['addUser']),
     async submit() {
       const valid = await this.$refs.observer.validate()
-      console.log(valid)
-      this.$refs.observer.$el.querySelector('.error--text input').focus()
+      if (!valid) {
+        this.$refs.observer.$el.querySelector('.error--text input').focus()
+      } else {
+        this.addUser({
+          fullName: this.name,
+          mail: this.email,
+          userName: this.userName,
+          password: this.password,
+        })
+        this.clear()
+        this.$router.push('/login')
+      }
     },
     clear() {
       this.name = ''
@@ -170,11 +187,6 @@ export default {
       this.checkbox = null
       this.$refs.observer.reset()
     },
-  },
-  head() {
-    return {
-      title: 'Signup',
-    }
   },
 }
 </script>
