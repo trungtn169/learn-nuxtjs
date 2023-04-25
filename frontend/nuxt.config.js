@@ -44,6 +44,7 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    '@nuxtjs/auth-next',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -56,6 +57,25 @@ export default {
   pwa: {
     manifest: {
       lang: 'en',
+    },
+  },
+
+  auth: {
+    user: {
+      scheme: 'local',
+      token: {
+        property: 'access_token',
+        maxAge: 1800,
+        global: true,
+      },
+      user: {
+        property: 'user',
+      },
+      endpoints: {
+        login: { url: '/api/loginUser', method: 'post' },
+        user: { url: '/api/profile', method: 'get' },
+        logout: { url: '/api/logout', method: 'post' },
+      },
     },
   },
 

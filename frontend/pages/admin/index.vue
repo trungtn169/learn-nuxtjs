@@ -4,6 +4,7 @@
 <script>
 export default {
   name: 'AdminPage',
+  middleware: 'auth',
 }
 </script>
 <style lang=""></style>

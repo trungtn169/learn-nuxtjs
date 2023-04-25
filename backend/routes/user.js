@@ -6,6 +6,7 @@ import {
 	update,
 	deleteById,
 	deleteAll,
+	loginUser,
 } from '../controllers/user.js';
 const router = Router();
 
@@ -26,5 +27,8 @@ router.delete('/:id', deleteById);
 
 // Delete all User
 router.delete('/', deleteAll);
+
+// Login
+router.post('/loginUser', loginUser);
 
 export default router;

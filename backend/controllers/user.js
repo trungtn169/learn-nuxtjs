@@ -53,6 +53,26 @@ export function findAll(req, res) {
 
 export function findOne(req, res) {
 	const userName = req.params.userName;
+
+	User.findOne({ where: { userName: userName } })
+		.then((data) => {
+			if (data) {
+				res.send(data);
+			} else {
+				res.status(404).send({
+					message: `Cannot find User with user name=${userName}.`,
+				});
+			}
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message: 'Error retrieving User with user name=' + userName,
+			});
+		});
+}
+
+export function loginUser(req, res) {
+	const userName = req.params.userName;
 	const password = req.params.password;
 
 	User.findOne({ where: { userName: userName, password: password } })
